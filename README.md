@@ -39,8 +39,8 @@ This repository contains a comprehensive project designed to predict and analyze
 - **Tech Stack**: Python, Jupyter, Pandas, Scikit-learn, Matplotlib, Seaborn.
 
 ## Files and Directories
-- `churn_predict_model.pkl`: The trained machine learning model used for prediction.
+- `req.txt`: The requirement file for running the model.
 - `scaler.pkl`: The scaler used to normalize input data for the model.
-- `churn_prediction_app.py`: The Streamlit app for customer churn prediction.
+- `app.py`: The Streamlit app for customer churn prediction.
 - `Churn Analysis.pbix`: The Power BI report file for visual analysis.
 - `Churn_Analysis.ipynb`: The Jupyter notebook for data analysis and model creation.
