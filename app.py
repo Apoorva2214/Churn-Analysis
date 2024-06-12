@@ -54,5 +54,5 @@ st.markdown("""
     ---
     ### About
     This app uses a machine learning model to predict whether a bank customer will churn.
-    For more information, visit [GitHub](https://github.com/your-repo).
+    For more information, visit [GitHub](https://github.com/Apoorva2214/Churn-Analysis).
 """)
