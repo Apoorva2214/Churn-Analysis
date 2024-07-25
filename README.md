@@ -1,4 +1,4 @@
-# Bank Customer Churn Prediction
+# CustomerKeeper: Bank Customer Churn Prediction
 
 ## Overview
 This repository contains a comprehensive project designed to predict and analyze customer churn for a bank. It includes the following components:
