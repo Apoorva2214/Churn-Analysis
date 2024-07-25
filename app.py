@@ -20,20 +20,39 @@ def predict_churn(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):
     features = np.array([[p1, p2, p3, p4, p5, p6, p7, p8, Geography_Germany, Geography_Spain, p10]])
     scaled_features = scaler.transform(features)
     result = model.predict(scaled_features)
-    return result[0]
+    proba = model.predict_proba(scaled_features)
+    return result[0], proba[0]
 
 # Streamlit app
-st.title("Bank Customer Churn Prediction")
+st.set_page_config(page_title="CustomerKeeper", page_icon=":shield:", layout="wide")
+
+st.title(":shield: CustomerKeeper: Bank Customer Churn Prediction")
+
+# Custom CSS for styling
+st.markdown("""
+    <style>
+    .reportview-container {
+        background: #f5f5f5;
+    }
+    .sidebar .sidebar-content {
+        background: #f5f5f5;
+    }
+    .stButton>button {
+        background: #007bff;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Create columns for a more compact layout
 col1, col2 = st.columns(2)
 
 with col1:
-    p1 = st.number_input('Credit Score', min_value=0, max_value=1000, value=600, help="Enter the customer's credit score.")
-    p2 = st.number_input('Age', min_value=0, max_value=120, value=35, help="Enter the customer's age.")
-    p3 = st.number_input('Tenure', min_value=0, max_value=10, value=5, help="Enter the number of years the customer has been with the bank.")
-    p4 = st.number_input('Balance', value=0.0, help="Enter the customer's account balance.")
-    p5 = st.number_input('Number of Products', min_value=1, max_value=4, value=1, help="Enter the number of products the customer has.")
+    p1 = st.number_input('Credit Score', min_value=0, max_value=1000, value=600, help="Enter the customer's credit score. A higher score indicates better creditworthiness.")
+    p2 = st.number_input('Age', min_value=0, max_value=120, value=35, help="Enter the customer's age. Typically, middle-aged customers are less likely to churn.")
+    p3 = st.number_input('Tenure', min_value=0, max_value=10, value=5, help="Enter the number of years the customer has been with the bank. Longer tenure often correlates with higher loyalty.")
+    p4 = st.number_input('Balance', value=0.0, help="Enter the customer's account balance. Higher balances might indicate a lower likelihood of churn.")
+    p5 = st.number_input('Number of Products', min_value=1, max_value=4, value=1, help="Enter the number of products the customer has. More products usually mean more engagement with the bank.")
 
 with col2:
     p6 = st.selectbox('Has Credit Card', options=[0, 1], format_func=lambda x: 'Yes' if x == 1 else 'No', help="Does the customer have a credit card?")
@@ -43,11 +62,15 @@ with col2:
     p10 = st.selectbox('Gender', options=[0, 1], format_func=lambda x: 'Male' if x == 1 else 'Female', help="Select the customer's gender.")
 
 if st.button('Predict'):
-    result = predict_churn(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
+    result, proba = predict_churn(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
     if result == 1:
         st.success("The customer is likely to churn.")
     else:
         st.success("The customer is not likely to churn.")
+    
+    feedback = st.text_input("Do you agree with the prediction? Please provide your feedback.")
+    if feedback:
+        st.write("Thank you for your feedback!")
 
 # Footer for additional information or credits
 st.markdown("""
